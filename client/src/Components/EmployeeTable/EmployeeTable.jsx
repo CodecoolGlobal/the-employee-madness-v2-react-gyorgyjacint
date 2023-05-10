@@ -6,7 +6,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
   const [origEmployees, setOrigEmployees] = useState(employees);
   const [currentEmployees, setCurrentEmployees] = useState(employees);
 
-  const [itemPerPage, setItemPerPage] = useState(10);
+  const [itemPerPage] = useState(10);
   const [pageFrom, setPageFrom] = useState(0);
   const [pageTo, setPageTo] = useState(10);
   const [page, setPage] = useState(0);
@@ -18,6 +18,8 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
   const [showSort, setShowSort] = useState(false);
   const [sortKey, setSortKey] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
+
+
 
   // #region Pagination
 
@@ -77,7 +79,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
     switch (sortKey) {
       case "first":
         setCurrentEmployees(
-          structuredClone(employees)
+          structuredClone(currentEmployees)
           .sort((a,b) => a.name.split(" ")[0] < b.name.split(" ")[0] ? -direction : direction)
         );
         break;
@@ -86,7 +88,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
         break;
       case "last":
         setCurrentEmployees(
-          structuredClone(employees)
+          structuredClone(currentEmployees)
           .sort((a,b) => {
             let lastNameA =  a.name.split(" ");
             let lastNameB = b.name.split(" ");
@@ -98,13 +100,13 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
         break;
       case "position":
         setCurrentEmployees(
-          structuredClone(employees)
+          structuredClone(currentEmployees)
           .sort((a,b) => a.position < b.position ? -direction : direction)
         );
         break;
       case "level":
         setCurrentEmployees(
-          structuredClone(employees)
+          structuredClone(currentEmployees)
           .sort((a,b) => a.level < b.level ? -direction : direction)
         );
         break;
@@ -169,6 +171,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
               </option>
             </select>
           </form>
+
             {showSort ? (
             <>
             <button onClick={() => setShowSort(!showSort)}>Hide</button>
@@ -184,12 +187,14 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
               <button onClick={() => setShowSort(!showSort)}>Show</button>
             )}
         </div>
+
       <table>
         <thead>
           <tr>
             <th>Name</th>
             <th>Level</th>
             <th>Position</th>
+            <th>Present</th>
             <th />
           </tr>
         </thead>
@@ -199,6 +204,9 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
               <td>{employee.name}</td>
               <td>{employee.level}</td>
               <td>{employee.position}</td>
+              <td>
+                <input type="checkbox"/>
+              </td>
               <td>
                 <Link to={`/update/${employee._id}`}>
                   <button type="button">Update</button>
@@ -211,6 +219,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
           ))}
         </tbody>
       </table>
+
       <div className="paginationBtns">
         <button
           onClick={handlePrevPage}
@@ -224,6 +233,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
           >Next page
         </button>
       </div>
+
     </div>
   );
 };
