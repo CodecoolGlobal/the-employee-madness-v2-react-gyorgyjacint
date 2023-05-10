@@ -24,3 +24,7 @@
   - c src/Pages/Employee/EmployeeSearch.jsx
   ### server
   - m server.js
+
+## OPT: Pagination
+  ### client:
+  - c src/Pages/Employee/EmployeeList.jsx

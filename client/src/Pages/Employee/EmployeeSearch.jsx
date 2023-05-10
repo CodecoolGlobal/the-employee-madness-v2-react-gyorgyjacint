@@ -38,9 +38,6 @@ function EmployeeSearch() {
     return <EmployeeTable employees={employees} setEmployees={setEmployees} onDelete={handleDelete} />;
   }
 
-  
-
-
 }
 
 export default EmployeeSearch;
