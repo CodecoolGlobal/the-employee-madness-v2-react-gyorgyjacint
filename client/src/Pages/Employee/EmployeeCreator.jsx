@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import EmployeeForm from "../Components/EmployeeForm";
+import EmployeeForm from "../../Components/EmployeeForm";
 
 const createEmployee = (employee) => {
   return fetch("/api/employees", {

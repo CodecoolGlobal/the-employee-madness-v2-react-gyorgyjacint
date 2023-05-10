@@ -101,3 +101,27 @@ button {
 .grow {
   flex: 1;
 }
+
+.eqipmentUpdater {
+  min-width: fit-content;
+  width: 50%;
+  margin: 50px auto 0 auto;
+}
+
+.eqipmentUpdater > .euWrapper {
+  display: grid;
+}
+
+.euWrapper > button {
+  width: 500px;
+}
+
+.paginationBtns {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.paginationBtns > button {
+  margin: 15px;
+}

@@ -1,3 +1,41 @@
 .EmployeeTable {
   padding: 0.5rem;
 }
+
+/* Filter */
+
+.filters {
+  display: inline;
+  margin-bottom: 150px;
+}
+
+.filterForm{
+  margin: auto;
+  width: 50%;
+}
+
+.filterFormInput {
+  height: 30px;
+  width: 300px;
+  margin: auto;
+}
+
+.filterFormSelect {
+  margin: 0 auto 20px auto;
+  height: 30px;
+  width: 100px;
+}
+
+.filterFormBtns {
+  display: flex;
+  margin: 10px auto 10px auto;
+}
+
+.filterFormBtns > button {
+  width: 145px;
+  margin: 0;
+}
+
+.filterFormBtns > button:last-of-type {
+  margin-left: 10px;
+}

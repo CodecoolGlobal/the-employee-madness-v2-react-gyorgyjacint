@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import EmployeeForm from "../Components/EmployeeForm";
-import Loading from "../Components/Loading";
+import EmployeeForm from "../../Components/EmployeeForm";
+import Loading from "../../Components/Loading";
 
 const updateEmployee = (employee) => {
   return fetch(`/api/employees/${employee._id}`, {
