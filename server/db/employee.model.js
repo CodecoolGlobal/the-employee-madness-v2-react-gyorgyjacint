@@ -7,6 +7,7 @@ const EmployeeSchema = new Schema({
   name: String,
   level: String,
   position: String,
+  favorite_brand: Schema.Types.ObjectId,
   created: {
     type: Date,
     default: Date.now,

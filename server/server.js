@@ -2,7 +2,8 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const EmployeeModel = require("./db/employee.model");
-const EquipmentModel = require("./db/equipment.model")
+const EquipmentModel = require("./db/equipment.model");
+const BrandModel = require("./db/favoriteBrand.model");
 
 const { MONGO_URL, PORT = 8080 } = process.env;
 
@@ -126,6 +127,14 @@ app.delete("/api/employees/:id", async (req, res, next) => {
   }
 });
 
+app.get("/api/brands", async (req,res) => {
+  try {
+    const brands = await BrandModel.find();
+    res.json(brands)
+  } catch (error) {
+    res.status(400).json({message: error})
+  }
+});
 
 const main = async () => {
   await mongoose.connect(MONGO_URL);

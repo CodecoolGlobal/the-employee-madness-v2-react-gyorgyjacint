@@ -21,6 +21,8 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
 
   const [presentIds, setPresentIds] = useState([]);
 
+  const [brands, setBrands] = useState(null);
+
   // #region Pagination
 
   const handleNextPage = () => {
@@ -183,6 +185,20 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
   }
   // #endregion
 
+  // #region FavoriteBrands
+
+  useEffect(() => {
+    fetch("/api/brands")
+    .then(res => res.json())
+    .then(brands => setBrands(brands))
+  }, []);
+
+  const getBrand = (employeeBrandId) => {
+    return brands ? brands.find((brand) => brand._id === employeeBrandId).name : null ;
+  }
+
+  // #endregion
+
   return (
     <div className="EmployeeTable">
         <div className="filters">
@@ -236,6 +252,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
             <th>Level</th>
             <th>Position</th>
             <th>Present</th>
+            <th>Favorite brand</th>
             <th />
           </tr>
         </thead>
@@ -253,6 +270,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
                   >
                   </input>
               </td>
+              <td>{getBrand(employee.favorite_brand) || "Loading..."}</td>
               <td>
                 <Link to={`/update/${employee._id}`}>
                   <button type="button">Update</button>

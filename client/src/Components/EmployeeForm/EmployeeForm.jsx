@@ -1,4 +1,16 @@
+import { useEffect, useState } from "react";
+import Loading from "../Loading";
+
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
+
+  const [brands, setBrands] = useState(null)
+
+  useEffect(() => {
+    fetch("/api/brands")
+    .then(res => res.json())
+    .then(brands => setBrands(brands))
+  },[]);
+
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -12,6 +24,10 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
 
     return onSave(employee);
   };
+
+  if (!brands) {
+    return <Loading />
+  }
 
   return (
     <form className="EmployeeForm" onSubmit={onSubmit}>
@@ -44,6 +60,15 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
           name="position"
           id="position"
         />
+      </div>
+
+      <div className="control">
+        <label htmlFor="favorite_brand">Favorite brand:</label>
+        <select name="favorite_brand" defaultValue={employee ? employee.favorite_brand : brands[0]._id}>
+          {brands && brands.map(brand => (
+            <option key={brand._id} value={brand._id}>{brand.name}</option>
+          ))}
+        </select>
       </div>
 
       <div className="buttons">
