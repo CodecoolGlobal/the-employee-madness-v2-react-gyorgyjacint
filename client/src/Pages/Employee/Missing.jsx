@@ -35,27 +35,21 @@ const Missing = () => {
   const [loading, setLoading] = useState(true);
   const [missingEmployees, setMissingEmployees] = useState(null);
   //const [presentEmployees, setPresentEmployees] = useState(null);
-  const [didReset, setDidReset] = useState(false);
-  const [missingLocalStorage, setMissingLocalStorage] = useState(false);
-  
+  const [didReset, setDidReset] = useState(false);  
 
   useEffect(() => {
     fetchAllEmployees()
     .then(employees => {
       const presentIds = JSON.parse(window.localStorage.getItem("present"));
-      if (presentIds === null) {
-        setLoading(false);
-        setMissingLocalStorage(true);
-        return;
-      }
       let missingEmployeesData = [];
+      let showAll = ( presentIds === null );
 
       employees.forEach(employee => {
-        if (!presentIds.includes(employee._id)) {
+        if (showAll || !presentIds.includes(employee._id)) {
             missingEmployeesData.push(employee);
           }
       })
-      setMissingEmployees(missingEmployeesData.length > 0 ? missingEmployeesData : null);
+      setMissingEmployees(missingEmployeesData);
       setLoading(false);
     })
   }, [])
@@ -79,10 +73,6 @@ const Missing = () => {
 
   if (didReset) {
     return <h1>Attendance resetted!</h1>
-  }
-
-  if (missingLocalStorage) {
-    return <h1>Didn't check yet!</h1>
   }
 
   return (
