@@ -10,6 +10,7 @@ import EmployeeList from "./Pages/Employee/EmployeeList";
 import EmployeeCreator from "./Pages/Employee/EmployeeCreator";
 import EmployeeUpdater from "./Pages/Employee/EmployeeUpdater";
 import EmployeeSearch from "./Pages/Employee/EmployeeSearch";
+import Missing from "./Pages/Employee/Missing";
 
 import EquipmentList from "./Pages/Equipment/EquipmentList";
 import EquipmentUpdater from "./Pages/Equipment/EquipmentUpdater";
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/search/:name",
         element: <EmployeeSearch />,
+      },
+      {
+        path: "/missing",
+        element: <Missing />
       },
       {
         path: "/equipment",

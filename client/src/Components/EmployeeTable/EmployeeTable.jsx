@@ -14,12 +14,12 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
   const [maxPage, setMaxPage] = useState(Math.floor((currentEmployees.length - 1) / itemPerPage));
 
   const searchTherm = useRef(null);
-
+  
   const [showSort, setShowSort] = useState(false);
   const [sortKey, setSortKey] = useState(null);
   const [sortOrder, setSortOrder] = useState(null);
 
-
+  const [presentIds, setPresentIds] = useState([]);
 
   // #region Pagination
 
@@ -142,6 +142,47 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
   };
   // #endregion
 
+  // #region Attendance
+  useEffect(() => {
+    const presentData = JSON.parse(window.localStorage.getItem("present"));
+    if (presentData) {
+      setPresentIds(presentData);
+    }
+  }, []);
+  
+  const handleAttendance = (e, employeeId) => {
+    let presentData = [...presentIds];
+    if (e.target.checked) {
+      presentData.push(employeeId)
+    } else {
+      const index = presentIds.indexOf(employeeId);
+      presentData.splice(index, 1);
+    }
+    setPresentIds(presentData);
+    window.localStorage.setItem("present", JSON.stringify(presentData));
+  }
+
+  const handleDelete = (id) => {
+    onDelete(id);
+
+    let presentData = JSON.parse(window.localStorage.getItem("present"));
+    const presentDataIndex = presentData.indexOf(id);
+    const presentIdsIndex = presentIds.indexOf(id);
+
+    if (presentDataIndex !== -1) {
+      presentData.splice(presentDataIndex, 1);
+      window.localStorage.setItem("present", JSON.stringify(presentData));
+    }
+
+    if (presentIdsIndex !== -1) {
+      const tempPresentIds = [...presentIds];
+      tempPresentIds.splice(presentIdsIndex, 1);
+      setPresentIds(tempPresentIds);
+    }
+
+  }
+  // #endregion
+
   return (
     <div className="EmployeeTable">
         <div className="filters">
@@ -205,13 +246,18 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
               <td>{employee.level}</td>
               <td>{employee.position}</td>
               <td>
-                <input type="checkbox"/>
+                <input
+                  type="checkbox"
+                  onChange={(e) => handleAttendance(e, employee._id)}
+                  checked={presentIds.indexOf(employee._id) === -1 ? false : true}
+                  >
+                  </input>
               </td>
               <td>
                 <Link to={`/update/${employee._id}`}>
                   <button type="button">Update</button>
                 </Link>
-                <button type="button" onClick={() => onDelete(employee._id)}>
+                <button type="button" onClick={() => handleDelete(employee._id)}>
                   Delete
                 </button>
               </td>

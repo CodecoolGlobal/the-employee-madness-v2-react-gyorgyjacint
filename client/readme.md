@@ -27,4 +27,10 @@
 
 ## OPT: Pagination
   ### client:
-  - c src/Pages/Employee/EmployeeList.jsx
+  - c src/Components/EmployeeTable/EmployeeTable.jsx
+
+## OPT: Employee attendance
+  ### client:
+  - m src/Components/EmployeeTable/EmployeeTable.jsx
+  - m src/index.js
+  - c src/Pages/Employee/Missing.jsx
