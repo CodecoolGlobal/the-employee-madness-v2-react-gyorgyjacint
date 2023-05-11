@@ -45,3 +45,9 @@
   - m db/employee.model.js
   - m populate/populate.js
   - m server/server.js
+
+## OPT: Which employee uses which equipment
+  ### client:
+  - m src/Pages/Employee/EmployeeUpdater.jsx
+  ### server:
+  - m db/employee.model.js

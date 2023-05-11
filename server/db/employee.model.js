@@ -8,6 +8,9 @@ const EmployeeSchema = new Schema({
   level: String,
   position: String,
   favorite_brand: Schema.Types.ObjectId,
+  equipments: [{
+    type: Schema.Types.ObjectId
+  }],
   created: {
     type: Date,
     default: Date.now,

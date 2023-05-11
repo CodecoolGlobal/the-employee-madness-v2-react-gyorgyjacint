@@ -32,6 +32,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
     setPageTo(pageTo + itemPerPage);
     setPage(page + 1);
   }
+  
   const handlePrevPage = () => {
     setCurrentPageData([...currentEmployees].slice(pageFrom - itemPerPage, pageTo - itemPerPage));
 
