@@ -20,7 +20,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   },[]);
 
   const handleEquipmentAdd = (e) => {
-    setEmployeeEquipments([...employeeEquipments, e.target.value])
+    setEmployeeEquipments([...employeeEquipments, e.target.value]);
   };
 
   const handleEquipmentDelete = (e) => {
@@ -50,7 +50,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
   };
 
   if (!brands || !equipments) {
-    return <Loading />
+    return <Loading />;
   }
 
   return (

@@ -20,7 +20,7 @@ function EquipmentUpdater() {
       setAmount(data.amount);
     })
 
-    setLoading(false)
+    setLoading(false);
   }, [id]);
 
   const handleUpdate = (e) => {
@@ -36,11 +36,11 @@ function EquipmentUpdater() {
         type,
         amount
       })
-    })
+    });
   };
 
   if (loading) {
-    return <Loading />
+    return <Loading />;
   }
 
   return (

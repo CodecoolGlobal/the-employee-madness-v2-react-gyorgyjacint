@@ -6,25 +6,6 @@ const fetchAllEmployees = () => {
   return fetch("/api/employees/").then(res => res.json());
 }
 
-/*
-const getSortedEmployees = () => {
-  const employees = fetchAllEmployees();
-  const presentIds = JSON.parse(window.localStorage.getItem("present"));
-  let presentEmployeesData = [];
-  let missingEmployeesData = [];
-  console.log(employees)
-  employees.forEach(employee => {
-    if (presentIds.includes(employee._id)) {
-      presentEmployeesData.push(employee);
-    } else {
-      missingEmployeesData.push(employee);
-    }
-  });
-
-  return missingEmployeesData;
-}
-*/
-
 const deleteEmployee = (id) => {
   return fetch(`/api/employees/${id}`, { method: "DELETE" }).then((res) =>
     res.json()
@@ -34,7 +15,6 @@ const deleteEmployee = (id) => {
 const Missing = () => {
   const [loading, setLoading] = useState(true);
   const [missingEmployees, setMissingEmployees] = useState(null);
-  //const [presentEmployees, setPresentEmployees] = useState(null);
   const [didReset, setDidReset] = useState(false);  
 
   useEffect(() => {
@@ -46,9 +26,9 @@ const Missing = () => {
 
       employees.forEach(employee => {
         if (showAll || !presentIds.includes(employee._id)) {
-            missingEmployeesData.push(employee);
-          }
-      })
+          missingEmployeesData.push(employee);
+        }
+      });
       setMissingEmployees(missingEmployeesData);
       setLoading(false);
     })
@@ -62,7 +42,7 @@ const Missing = () => {
     });
   };
 
-  const handleReset = () => {
+  const handleAttendanceReset = () => {
     window.localStorage.removeItem("present");
     setDidReset(true);
   }
@@ -86,7 +66,7 @@ const Missing = () => {
             <h1>Everyone is present!</h1>
             )
           }
-          <button onClick={handleReset}>Reset attendance</button>
+          <button onClick={handleAttendanceReset}>Reset attendance</button>
     </div>
 
   );

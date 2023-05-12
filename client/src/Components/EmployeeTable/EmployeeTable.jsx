@@ -51,7 +51,7 @@ const EmployeeTable = ({ employees, onDelete }) => {
     if (employees.length <= pageFrom) {
       setPageFrom(pageFrom - itemsPerPage);
       setPageTo(pageTo - itemsPerPage);
-      setPage(page - 1)
+      setPage(page - 1);
       setCurrentPageData([...employees].slice(pageFrom - itemsPerPage, pageTo - itemsPerPage));
     } else {
       setCurrentPageData([...employees].slice(pageFrom, pageTo));
@@ -170,7 +170,7 @@ const EmployeeTable = ({ employees, onDelete }) => {
   const handleAttendance = (e, employeeId) => {
     let presentData = [...presentIds];
     if (e.target.checked) {
-      presentData.push(employeeId)
+      presentData.push(employeeId);
     } else {
       const index = presentIds.indexOf(employeeId);
       presentData.splice(index, 1);
@@ -205,11 +205,11 @@ const EmployeeTable = ({ employees, onDelete }) => {
   useEffect(() => {
     fetch("/api/brands")
     .then(res => res.json())
-    .then(brands => setBrands(brands))
+    .then(brands => setBrands(brands));
   }, []);
 
   const getBrand = (employeeBrandId) => {
-    return brands ? brands.find((brand) => brand._id === employeeBrandId).name : null ;
+    return brands ? brands.find((brand) => brand._id === employeeBrandId).name : null;
   }
 
   // #endregion

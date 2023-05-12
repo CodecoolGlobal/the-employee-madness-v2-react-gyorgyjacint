@@ -4,7 +4,7 @@ import Loading from "../../Components/Loading";
 
 function EquipmentUpdater() {
   const [loading, setLoading] = useState(true);
-  const [allEquipments, setAllEquipments] = useState(null)
+  const [allEquipments, setAllEquipments] = useState(null);
   const [equipments, setEquipments] = useState(null);
   const [searchTherm, setSearchTherm] = useState("");
 
@@ -13,7 +13,7 @@ function EquipmentUpdater() {
     .then(res => res.json())
     .then(data => {
       setEquipments(data);
-      setAllEquipments(data)
+      setAllEquipments(data);
     });
 
     setLoading(false);
@@ -40,7 +40,7 @@ function EquipmentUpdater() {
 
     const newEqList = [...allEquipments].filter(equipment => equipment.name.toLowerCase().includes(input));
   
-    setEquipments(newEqList)
+    setEquipments(newEqList);
   }
 
   if (loading) {
@@ -53,7 +53,13 @@ function EquipmentUpdater() {
       <div className="searchEquipment">
         <label htmlFor="eqFormInput"> Search Equipment:</label>
         <br/>
-        <input name="searchTherm" id="eqFormInput" placeholder="Search equipment" value={searchTherm} onChange={handleSearch}></input>
+        <input
+          name="searchTherm"
+          id="eqFormInput"
+          placeholder="Search equipment"
+          value={searchTherm}
+          onChange={handleSearch}>
+        </input>
       </div>
       <table>
         <thead>

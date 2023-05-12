@@ -10,7 +10,7 @@ const deleteEmployee = (id) => {
 };
 
 function EmployeeSearch() {
-  const { name } = useParams()
+  const { name } = useParams();
   const [loading, setLoading] = useState(true);
   const [employees, setEmployees] = useState(null);
 
@@ -28,15 +28,18 @@ function EmployeeSearch() {
       .then((employees) => {
         setLoading(false);
         setEmployees(employees);
-      })
-    setLoading(false)
+      });
+    setLoading(false);
   }, [name]);
 
   if (loading) {
     return <Loading />;
-  } else if (employees) {
-    return <EmployeeTable employees={employees} setEmployees={setEmployees} onDelete={handleDelete} />;
   }
+  if (employees) {
+    return <EmployeeTable employees={employees} onDelete={handleDelete} />;
+  }
+
+  return <h1>Something went wrong</h1>;
 
 }
 
