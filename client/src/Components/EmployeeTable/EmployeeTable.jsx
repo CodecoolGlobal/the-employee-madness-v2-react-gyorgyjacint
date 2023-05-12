@@ -2,16 +2,16 @@ import { Link } from "react-router-dom";
 import "./EmployeeTable.css";
 import { useEffect, useRef, useState } from "react";
 
-const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
+const EmployeeTable = ({ employees, onDelete }) => {
   const [origEmployees, setOrigEmployees] = useState(employees);
   const [currentEmployees, setCurrentEmployees] = useState(employees);
 
-  const [itemPerPage] = useState(10);
+  const [itemsPerPage] = useState(10);
   const [pageFrom, setPageFrom] = useState(0);
   const [pageTo, setPageTo] = useState(10);
   const [page, setPage] = useState(0);
   const [currentPageData, setCurrentPageData] = useState([...currentEmployees].slice(pageFrom, pageTo));
-  const [maxPage, setMaxPage] = useState(Math.floor((currentEmployees.length - 1) / itemPerPage));
+  const [maxPage, setMaxPage] = useState(Math.floor((currentEmployees.length - 1) / itemsPerPage));
 
   const searchTherm = useRef(null);
   
@@ -26,18 +26,18 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
   // #region Pagination
 
   const handleNextPage = () => {
-    setCurrentPageData([...currentEmployees].slice(pageFrom + itemPerPage, pageTo + itemPerPage));
+    setCurrentPageData([...currentEmployees].slice(pageFrom + itemsPerPage, pageTo + itemsPerPage));
 
-    setPageFrom(pageFrom + itemPerPage);
-    setPageTo(pageTo + itemPerPage);
+    setPageFrom(pageFrom + itemsPerPage);
+    setPageTo(pageTo + itemsPerPage);
     setPage(page + 1);
   }
   
   const handlePrevPage = () => {
-    setCurrentPageData([...currentEmployees].slice(pageFrom - itemPerPage, pageTo - itemPerPage));
+    setCurrentPageData([...currentEmployees].slice(pageFrom - itemsPerPage, pageTo - itemsPerPage));
 
-    setPageFrom(pageFrom - itemPerPage);
-    setPageTo(pageTo - itemPerPage);
+    setPageFrom(pageFrom - itemsPerPage);
+    setPageTo(pageTo - itemsPerPage);
     setPage(page - 1);
   }
 
@@ -47,20 +47,20 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
   }, [currentEmployees]);
   
   useEffect(() => {
-    //data update
-    setOrigEmployees(employees);
-    setCurrentEmployees(employees);
-    
     //pagination
     if (employees.length <= pageFrom) {
-      setPageFrom(pageFrom - itemPerPage);
-      setPageTo(pageTo - itemPerPage);
+      setPageFrom(pageFrom - itemsPerPage);
+      setPageTo(pageTo - itemsPerPage);
       setPage(page - 1)
-      setCurrentPageData([...employees].slice(pageFrom - itemPerPage, pageTo - itemPerPage));
+      setCurrentPageData([...employees].slice(pageFrom - itemsPerPage, pageTo - itemsPerPage));
     } else {
       setCurrentPageData([...employees].slice(pageFrom, pageTo));
     }
-    setMaxPage(Math.floor((employees.length - 1) / itemPerPage));
+    
+    //data update
+    setMaxPage(Math.floor((employees.length - 1) / itemsPerPage));
+    setOrigEmployees(employees);
+    setCurrentEmployees(employees);
   }, [employees]);
 
 
@@ -71,7 +71,6 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
   const onSort = (e) => {
     setSortOrder( sortKey === e.target.value ? !sortOrder : true );
     setSortKey(e.target.value);
-    // reset pagination and update:
   };
 
   useEffect(() => {
@@ -108,9 +107,24 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
         );
         break;
       case "level":
+        const levels = {
+          Junior: 0,
+          Medior: 1,
+          Senior: 2,
+          Expert: 3,
+          Godlike: 4
+        };
+
         setCurrentEmployees(
           structuredClone(currentEmployees)
-          .sort((a,b) => a.level < b.level ? -direction : direction)
+          .sort((a,b) => {
+            let aValue, bValue;
+            for (const key in levels) {
+              if (a.level === key) aValue = levels[key];
+              if (b.level === key) bValue = levels[key];
+            }
+            return aValue < bValue ? -direction : direction;
+          })
         );
         break;
       default:
@@ -127,7 +141,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
 
   const handleReset = (e) => {
     setCurrentEmployees(origEmployees);
-    setMaxPage(Math.floor((origEmployees.length - 1) / itemPerPage));
+    setMaxPage(Math.floor((origEmployees.length - 1) / itemsPerPage));
     searchTherm.current.value = "";
   };
 
@@ -141,7 +155,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
       employee[searchIn].toLowerCase().includes(searchTherm.current.value)
     ));
     setCurrentEmployees(newEmployeesData);
-    setMaxPage(Math.floor((newEmployeesData.length - 1) / itemPerPage));
+    setMaxPage(Math.floor((newEmployeesData.length - 1) / itemsPerPage));
   };
   // #endregion
 
