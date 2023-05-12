@@ -127,7 +127,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
 
   const handleReset = (e) => {
     setCurrentEmployees(origEmployees);
-    setMaxPage(Math.floor(origEmployees.length / itemPerPage));
+    setMaxPage(Math.floor((origEmployees.length - 1) / itemPerPage));
     searchTherm.current.value = "";
   };
 
@@ -141,7 +141,7 @@ const EmployeeTable = ({ employees, setEmployees, onDelete }) => {
       employee[searchIn].toLowerCase().includes(searchTherm.current.value)
     ));
     setCurrentEmployees(newEmployeesData);
-    setMaxPage(Math.floor(newEmployeesData.length / itemPerPage));
+    setMaxPage(Math.floor((newEmployeesData.length - 1) / itemPerPage));
   };
   // #endregion
 
