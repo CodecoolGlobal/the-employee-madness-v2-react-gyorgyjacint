@@ -51,3 +51,8 @@
   - m src/Pages/Employee/EmployeeUpdater.jsx
   ### server:
   - m db/employee.model.js
+
+# Known bugs
+
+  - /
+    - Deleting an employee from the list when display is sorted resets the sort order
