@@ -1,26 +1,26 @@
 import { useEffect, useState } from "react";
 import Loading from "../Loading";
 
+const fetchBrands = () => (fetch("/api/brands"));
+const fetchEquipments = () => (fetch("/api/equipment"));
+
 const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
 
   const [brands, setBrands] = useState(null);
   const [equipments, setEquipments] = useState(null);
-  const [employeeEquipments, setEmployeeEquipments] = useState(employee?.equipments || []);
+  const [employeeEquipments, setEmployeeEquipments] = useState(employee?.equipments ?? []);
 
   useEffect(() => {
-    fetch("/api/brands")
-    .then(res => res.json())
-    .then(brandData => setBrands(brandData));
-  },[]);
+    Promise.all([fetchBrands(), fetchEquipments()])
+      .then(response => Promise.all(response.map((data) => data.json())))
+      .then(([brands, equipments]) => {
+        setBrands(brands);
+        setEquipments(equipments);
+      });
+  }, []);
 
-  useEffect(() => {
-    fetch("/api/equipment")
-    .then(res => res.json())
-    .then(equipmentData => setEquipments(equipmentData));
-  },[]);
-
-  const handleEquipmentAdd = (e) => {
-    setEmployeeEquipments([...employeeEquipments, e.target.value]);
+  const handleEquipmentAdd = (equipment) => {
+    setEmployeeEquipments([...employeeEquipments, equipment]);
   };
 
   const handleEquipmentDelete = (e) => {
@@ -106,7 +106,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
             <option
               key={equipment._id}
               value={equipment._id}
-              onClick={handleEquipmentAdd}
+              onClick={() => handleEquipmentAdd(equipment)}
               >{equipment.name}
             </option>
           ))}
@@ -114,10 +114,10 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
         <div className="currentEquipment">
             {employeeEquipments.map(equipment => (
               <button
-                key={(Math.random()*100000) + equipment}
-                value={equipment}
+                key={(Math.random()*100000) + equipment._id}
+                value={equipment._id}
                 onClick={handleEquipmentDelete}
-                >{equipments.find((e) => e._id === equipment).name}
+                >{equipments.find((e) => e._id === equipment._id).name}
                 </button>
             ))}
         </div>

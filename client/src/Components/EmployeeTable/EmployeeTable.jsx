@@ -205,20 +205,6 @@ const EmployeeTable = ({ employees, onDelete }) => {
 
   // #endregion
 
-  // #region FavoriteBrands
-
-  useEffect(() => {
-    fetch("/api/brands")
-    .then(res => res.json())
-    .then(brands => setBrands(brands));
-  }, []);
-
-  const getBrand = (employeeBrandId) => {
-    return brands ? brands.find((brand) => brand._id === employeeBrandId).name : null;
-  }
-
-  // #endregion
-
   return (
     <div className="EmployeeTable">
         <div className="filters">
@@ -290,7 +276,7 @@ const EmployeeTable = ({ employees, onDelete }) => {
                   >
                   </input>
               </td>
-              <td>{getBrand(employee.favorite_brand) || "Loading..."}</td>
+              <td>{employee.favorite_brand.name}</td>
               <td>
                 <Link to={`/update/${employee._id}`}>
                   <button type="button">Update</button>

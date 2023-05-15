@@ -75,18 +75,22 @@ app.delete("/api/equipment/:id", async (req, res, next) => {
 //
 
 app.get("/api/employees/", async (req, res) => {
-  const employees = await EmployeeModel.find().sort({ created: "desc" });
+  const employees = await EmployeeModel.find()
+    .populate("equipments").populate("favorite_brand").sort({ created: "desc" });
+
   return res.json(employees);
 });
 
 app.get("/api/employees/:id", async (req, res) => {
-  const employee = await EmployeeModel.findById(req.params.id);
+  const employee = await EmployeeModel.findById(req.params.id).populate("equipments").populate("favorite_brand");
   return res.json(employee);
 });
 
 app.get("/api/employees/find/:name", async (req, res) => {
   try {
-    const employees = await EmployeeModel.find({name: {$regex: req.params.name, $options: 'i'}});
+    const employees = await EmployeeModel.find({name: {$regex: req.params.name, $options: 'i'}})
+      .populate("equipments").populate("favorite_brand");
+
     return res.json(employees);
   } catch (error) {
     res.status(400).json({message: "Not found"});
