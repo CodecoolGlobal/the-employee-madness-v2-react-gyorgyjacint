@@ -181,8 +181,13 @@ const EmployeeTable = ({ employees, onDelete }) => {
 
   const handleDelete = (id) => {
     onDelete(id);
+    handlePresentsOnDelete(id);
+  }
 
+  const handlePresentsOnDelete = (id) => {
     let presentData = JSON.parse(window.localStorage.getItem("present"));
+    if (presentData == null) return;
+
     const presentDataIndex = presentData.indexOf(id);
     const presentIdsIndex = presentIds.indexOf(id);
 
@@ -196,8 +201,8 @@ const EmployeeTable = ({ employees, onDelete }) => {
       tempPresentIds.splice(presentIdsIndex, 1);
       setPresentIds(tempPresentIds);
     }
-
   }
+
   // #endregion
 
   // #region FavoriteBrands

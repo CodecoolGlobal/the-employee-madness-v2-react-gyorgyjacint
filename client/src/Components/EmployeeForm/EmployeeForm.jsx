@@ -5,7 +5,7 @@ const EmployeeForm = ({ onSave, disabled, employee, onCancel }) => {
 
   const [brands, setBrands] = useState(null);
   const [equipments, setEquipments] = useState(null);
-  const [employeeEquipments, setEmployeeEquipments] = useState(employee.equipments);
+  const [employeeEquipments, setEmployeeEquipments] = useState(employee?.equipments || []);
 
   useEffect(() => {
     fetch("/api/brands")
