@@ -15,6 +15,14 @@ It has several features, such as:
 - Frontend: React
 - Backend: Express.js
 
+### Reference images
+![image](https://github.com/CodecoolGlobal/the-employee-madness-v2-react-gyorgyjacint/assets/55077329/2eb0d690-8bf2-4441-bf0b-7a1bc55c1da3)
+![image](https://github.com/CodecoolGlobal/the-employee-madness-v2-react-gyorgyjacint/assets/55077329/d643456f-095c-46a8-80c7-6a9f90d3a9e2)
+![image](https://github.com/CodecoolGlobal/the-employee-madness-v2-react-gyorgyjacint/assets/55077329/5b0c9f4e-933c-496e-aea8-b293bcec0095)
+![image](https://github.com/CodecoolGlobal/the-employee-madness-v2-react-gyorgyjacint/assets/55077329/83376e6f-abd3-477f-8aa7-ce7c799bcfc8)
+![image](https://github.com/CodecoolGlobal/the-employee-madness-v2-react-gyorgyjacint/assets/55077329/5bfbb13d-ee48-46eb-b44a-dd6b5fe8e7c3)
+
+
 ## Usage
 
 ### Server side
