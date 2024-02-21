@@ -57,15 +57,7 @@ const router = createBrowserRouter([
       {
         path: "/equipment/create/",
         element: <EquipmentCreator />
-      },
-      {
-        path: "/table-test",
-        element: <TableTest />,
-      },
-      {
-        path: "/form-test",
-        element: <FormTest />,
-      },
+      }
     ],
   },
 ]);
