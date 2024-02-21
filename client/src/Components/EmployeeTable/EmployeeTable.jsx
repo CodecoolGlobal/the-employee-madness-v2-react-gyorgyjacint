@@ -21,8 +21,6 @@ const EmployeeTable = ({ employees, onDelete }) => {
 
   const [presentIds, setPresentIds] = useState([]);
 
-  const [brands, setBrands] = useState(null);
-
   // #region Pagination
 
   const handleNextPage = () => {

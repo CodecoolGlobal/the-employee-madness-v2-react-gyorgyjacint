@@ -14,8 +14,6 @@ const EmployeeSchema = new Schema({
   equipments: [{
     type: Schema.Types.ObjectId,
     ref: "Equipment"
-    //on server: .populate(path: "equipments")
-    // path: melyik mező referenciájában keressen (itt 11. sor equipments) .populate(path: "equipments", select:["property"])
   }],
   created: {
     type: Date,
